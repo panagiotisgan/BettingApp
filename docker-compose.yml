@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  betting.api:
+    image: ${DOCKER_REGISTRY-}bettingapi
+    build:
+      context: .
+      dockerfile: BettingAPIContainer/Betting.API/Dockerfile
+  db: 
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
