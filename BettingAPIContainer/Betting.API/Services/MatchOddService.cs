@@ -75,7 +75,8 @@ namespace Betting.API.Services
             return new ResponseDTO<MatchOdds>
             {
                 Data = matchOdds,
-                Message = "Match odd deleted successfully."
+                Message = "Match odd deleted successfully.",
+                ErrorMessages = null
             };
         }
 
@@ -101,7 +102,8 @@ namespace Betting.API.Services
             return new ResponseDTO<MatchOdds>
             { 
                 Data = dbEntity,
-                Message = "Entity updated successfully"
+                Message = "Entity updated successfully",
+                ErrorMessages = null
             };
         }
     }
