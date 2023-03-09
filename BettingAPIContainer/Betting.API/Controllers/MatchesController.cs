@@ -6,9 +6,11 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace Betting.API.Controllers
@@ -30,10 +32,12 @@ namespace Betting.API.Controllers
             _matchOddService = matchOddService;
         }
 
+
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation(Summary = "Create new Match.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseDTO<Match>))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]        
         public async Task<IActionResult> Post([FromBody] MatchDTO match)
         {
             ResponseDTO<Match> response = new ResponseDTO<Match>();
@@ -55,7 +59,8 @@ namespace Betting.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation(Summary = "Get Match from Database.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseDTO<Match>))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("{id}")]
@@ -81,7 +86,8 @@ namespace Betting.API.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation(Summary = "Update Match.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseDTO<Match>))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update([FromBody] MatchDTO match)
@@ -103,7 +109,8 @@ namespace Betting.API.Controllers
         }
 
         [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation(Summary = "Delete Match from Database.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseDTO<Match>))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("{id}")]
@@ -125,7 +132,8 @@ namespace Betting.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation(Tags = new[] { "Match Odds" }, Summary = "Create Match Odd.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseDTO<List<MatchOdds>>))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("matchOdds")]
@@ -147,8 +155,9 @@ namespace Betting.API.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(Tags = new[] { "Match Odds" },Summary = "Get Match Odds.")]
         [Route("MatchOdds/{matchId}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseDTO<List<MatchOdds>>))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetMatchOdds(int matchId)
@@ -170,7 +179,8 @@ namespace Betting.API.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation(Tags = new[] { "Match Odds" }, Summary = "Update Match Odds.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseDTO<MatchOdds>))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("MatchOdds")]
@@ -193,7 +203,8 @@ namespace Betting.API.Controllers
         }
 
         [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation(Tags = new[] { "Match Odds" }, Summary = "Delete Match Odd from Database.")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseDTO<MatchOdds>))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("matchOdds/{id}")]

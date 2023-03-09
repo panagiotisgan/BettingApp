@@ -42,7 +42,10 @@ namespace Betting.API
 
             services.AddControllers();
 
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.EnableAnnotations();
+            });
 
             services.AddScoped<IValidator<MatchOddDTO>, MatchOddDTOValidator>();
             services.AddScoped<IValidator<MatchDTO>, MatchDTOValidator>();

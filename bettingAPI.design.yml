@@ -7,6 +7,7 @@ paths:
     post:
       tags:
         - Matches
+      summary: Create new Match.
       requestBody:
         content:
           application/json:
@@ -21,6 +22,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
         '204':
           description: No Content
         '400':
@@ -38,6 +49,7 @@ paths:
     put:
       tags:
         - Matches
+      summary: Update Match.
       requestBody:
         content:
           application/json:
@@ -52,6 +64,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
         '204':
           description: No Content
         '400':
@@ -70,6 +92,7 @@ paths:
     get:
       tags:
         - Matches
+      summary: Get Match from Database.
       parameters:
         - name: id
           in: path
@@ -80,6 +103,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
         '204':
           description: No Content
         '400':
@@ -97,6 +130,7 @@ paths:
     delete:
       tags:
         - Matches
+      summary: Delete Match from Database.
       parameters:
         - name: id
           in: path
@@ -107,6 +141,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchResponseDTO'
         '204':
           description: No Content
         '400':
@@ -124,7 +168,8 @@ paths:
   /api/Matches/matchOdds:
     post:
       tags:
-        - Matches
+        - Match Odds
+      summary: Create Match Odd.
       requestBody:
         content:
           application/json:
@@ -145,6 +190,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchOddsListResponseDTO'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchOddsListResponseDTO'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchOddsListResponseDTO'
         '204':
           description: No Content
         '400':
@@ -162,7 +217,8 @@ paths:
   /api/Matches/MatchOdds/{matchId}:
     get:
       tags:
-        - Matches
+        - Match Odds
+      summary: Get Match Odds.
       parameters:
         - name: matchId
           in: path
@@ -173,6 +229,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchOddsListResponseDTO'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchOddsListResponseDTO'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchOddsListResponseDTO'
         '204':
           description: No Content
         '400':
@@ -190,7 +256,8 @@ paths:
   /api/Matches/MatchOdds:
     put:
       tags:
-        - Matches
+        - Match Odds
+      summary: Update Match Odds.
       requestBody:
         content:
           application/json:
@@ -205,6 +272,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchOddsResponseDTO'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchOddsResponseDTO'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchOddsResponseDTO'
         '204':
           description: No Content
         '400':
@@ -222,7 +299,8 @@ paths:
   /api/Matches/matchOdds/{id}:
     delete:
       tags:
-        - Matches
+        - Match Odds
+      summary: Delete Match Odd from Database.
       parameters:
         - name: id
           in: path
@@ -233,6 +311,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MatchOddsResponseDTO'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchOddsResponseDTO'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MatchOddsResponseDTO'
         '204':
           description: No Content
         '400':
@@ -249,6 +337,35 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
+    Match:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        description:
+          type: string
+          nullable: true
+        matchDate:
+          type: string
+          format: date-time
+        matchTime:
+          type: string
+          format: date-time
+        teamA:
+          type: string
+          nullable: true
+        teamB:
+          type: string
+          nullable: true
+        sport:
+          $ref: '#/components/schemas/SportValues'
+        matchOdds:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchOdds'
+          nullable: true
+      additionalProperties: false
     MatchDTO:
       type: object
       properties:
@@ -295,6 +412,67 @@ components:
           type: number
           format: double
       additionalProperties: false
+    MatchOdds:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        matchId:
+          type: integer
+          format: int32
+        specifier:
+          type: string
+          nullable: true
+        odd:
+          type: number
+          format: double
+      additionalProperties: false
+    MatchOddsListResponseDTO:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchOdds'
+          nullable: true
+        errorMessages:
+          type: array
+          items:
+            type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MatchOddsResponseDTO:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/MatchOdds'
+        errorMessages:
+          type: array
+          items:
+            type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MatchResponseDTO:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Match'
+        errorMessages:
+          type: array
+          items:
+            type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -315,3 +493,9 @@ components:
           type: string
           nullable: true
       additionalProperties: {}
+    SportValues:
+      enum:
+        - 1
+        - 2
+      type: integer
+      format: int32
